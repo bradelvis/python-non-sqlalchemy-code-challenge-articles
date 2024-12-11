@@ -170,3 +170,60 @@ class Magazine:
         max_count = max(article_count.values())
         top_magazines = [magazine for magazine, count in article_count.items() if count == max_count]
         return top_magazines[0] if top_magazines else None
+
+if __name__ == "__main__":
+    # Step 1: Create some Authors and Magazines
+    author1 = Author("Jane Doe")
+    author2 = Author("John Smith")
+
+    magazine1 = Magazine("Tech Monthly", "Technology")
+    magazine2 = Magazine("Science Today", "Science")
+    magazine3 = Magazine("Art Weekly", "Art")
+
+    # Step 2: Add Articles to the Authors
+    article1 = author1.add_article(magazine1, "The Future of AI")
+    article2 = author1.add_article(magazine2, "Exploring Quantum Physics")
+    article3 = author2.add_article(magazine1, "Blockchain in Finance")
+    article4 = author2.add_article(magazine3, "Modern Art Movements")
+
+    # Step 3: Print information about articles, authors, and magazines
+
+    # Print all articles written by author1
+    print(f"Articles by {author1.name}:")
+    for article in author1.articles():
+        print(f"- {article.title} in {article.magazine.name}")
+
+    # Print all unique magazines the author1 has contributed to
+    print(f"\nMagazines contributed to by {author1.name}:")
+    for mag in author1.magazines():
+        print(f"- {mag.name} ({mag.category})")
+
+    # Print all topic areas for author1 (magazine categories they have contributed to)
+    print(f"\nTopic areas for {author1.name}:")
+    print(author1.topic_areas())
+
+    # Print all authors who have written for magazine1
+    print(f"\nAuthors who have written for {magazine1.name}:")
+    for author in magazine1.contributors():
+        print(f"- {author.name}")
+
+    # Print all article titles in magazine1
+    print(f"\nArticles in {magazine1.name}:")
+    for title in magazine1.article_titles():
+        print(f"- {title}")
+
+    # Print contributing authors to magazine1
+    print(f"\nContributing authors to {magazine1.name} (more than 2 articles):")
+    contributing_authors = magazine1.contributing_authors()
+    if contributing_authors:
+        for author in contributing_authors:
+            print(f"- {author.name}")
+    else:
+        print("No contributing authors with more than 2 articles.")
+
+    # Step 4: Print the top publisher (the magazine with the most articles)
+    top_magazine = Magazine.top_publisher()
+    if top_magazine:
+        print(f"\nTop publisher (most articles): {top_magazine.name}")
+    else:
+        print("\nNo top publisher, no articles available.")
